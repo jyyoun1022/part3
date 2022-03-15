@@ -24,8 +24,14 @@
             <tbody>
                 <tr th:each="dto : ${result.dtoList}">
                     <th scope="row">[[${dto.bno}]]</th>
-                    <td><a th:href="@{/board/read(bno=${dto.bno},page=${dto.bno},type=${pageRequestDTO.type},keyword=${pageRequestDTO.keyword})}">[[${dto.title}]]------[<b>[[${dto.replyCount}]]</b>]</a></td>
-                    <td>[[${dto.writerName}]]<small>[[dto.writerEmail]]</small></td>
+                    <td><a th:href="@{/board/read(bno=${dto.bno},
+                    page=${result.page},
+                    type=${pageRequestDTO.type},
+                    keyword=${pageRequestDTO.keyword})}">
+                        [[${dto.title}]]------[<b>[[${dto.replyCount}]]</b>]
+                    </a>
+                    </td>
+                    <td>[[${dto.writerName}]]<small>[[${dto.writerEmail}]]</small></td>
                     <td>[[${#temporals.format(dto.regDate,'yyyy/MM/dd HH:mm:ss')}]]</td>
 
                 </tr>

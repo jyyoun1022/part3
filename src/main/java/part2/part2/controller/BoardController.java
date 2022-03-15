@@ -23,7 +23,7 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping("/list")
-    public void list(Model model,@ModelAttribute("pageRequestDTO") PageRequestDTO pageRequestDTO){
+    public void list(Model model, PageRequestDTO pageRequestDTO){
 
         model.addAttribute("result",boardService.getList(pageRequestDTO));
     }
@@ -41,5 +41,36 @@ public class BoardController {
     @GetMapping("/register")
     public void register(){
 
+    }
+    @GetMapping({"/read","/modify"})
+    public void read(Model model,@ModelAttribute("pageRequestDTO")PageRequestDTO pageRequestDTO,Long bno){
+
+        BoardDTO boardDTO = boardService.get(bno);
+
+        model.addAttribute("dto",boardDTO);
+    }
+    @PostMapping("/modify")
+    public String modify(Model model,@ModelAttribute("pageRequestDTO")PageRequestDTO pageRequestDTO,
+                         @ModelAttribute("boardDTO")BoardDTO boardDTO,
+                         RedirectAttributes redirectAttributes){
+
+        boardService.modify(boardDTO);
+
+        redirectAttributes.addFlashAttribute("page",pageRequestDTO.getPage());
+        redirectAttributes.addFlashAttribute("type",pageRequestDTO.getType());
+        redirectAttributes.addFlashAttribute("keyword",pageRequestDTO.getKeyword());
+
+        redirectAttributes.addFlashAttribute("bno",boardDTO.getBno());
+
+        return "redirect:/board/read";
+    }
+
+    @PostMapping("/remove")
+    public String remove(Long bno,RedirectAttributes redirectAttributes){
+
+        boardService.removeWIthReplies(bno);
+
+        redirectAttributes.addFlashAttribute("msg",bno);
+        return "redirect:/board/list";
     }
 }

@@ -1,8 +1,6 @@
 package part2.part2.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -10,6 +8,8 @@ import org.springframework.data.domain.Sort;
 @Builder
 @AllArgsConstructor
 @Data
+@Getter
+@Setter
 public class PageRequestDTO {
 
     private int page;
