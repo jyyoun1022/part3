@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import part2.part2.entity.Board;
 import part2.part2.entity.Reply;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
@@ -46,5 +47,13 @@ public class ReplyRepositoryTests {
         System.out.println(reply);
         System.out.println("===========");
         System.out.println(reply.getBoard());
+    }
+
+    @Test
+    void testListByBoard(){
+        Board board = Board.builder().bno(97L).build();
+        List<Reply> replyList = repository.getRepliesByBoardOrderByRno(board);
+
+        replyList.forEach(i-> System.out.println(i));
     }
 }
