@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+
+    <th:block th:fragment="content">
+
+                <h1 class="mt-4">Board Register Page></h1>
+
+                <div class=form-group>
+                    <label>Bno</label>
+                    <input type="text" class="form-control" name="bno" th:value="${dto.bno}" readonly>
+                </div>
+                <div class=form-group>
+                    <label>Title</label>
+                    <input type="text" class="form-control" name="title" th:value="${dto.title}" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Content</label>
+                    <textarea class="form-control" name="content"  rows="5" readonly>[[${dto.content}]]</textarea>
+                </div>
+                <div class="form-group">
+                    <label>Writer</label>
+                    <input type="text" class="form-control" name="member" th:value=${dto.writerName} readonly>
+                </div>
+                <div class="form-group">
+                    <label>RegDate</label>
+                    <input type="text" class="form-control" name="regDate" th:value="${#temporals.format(dto.regDate,'yyyy/MM/dd HH:mm:ss')}" readonly>
+                </div>
+                <div class="form-group">
+                    <label>modDate</label>
+                    <input type="text" class="form-control" name="modDate" th:value="${#temporals.format(dto.modDate,'yyyy/MM/dd HH:mm:ss')}" readonly>
+                </div>
+
+                <a th:href="@{/board/modify(bno=${dto.bno},page=${pageRequestDTO.page},type=${pageRequestDTO.type},keyword=${pageRequestDTO.keyword})}">
+                    <button type="button" class="btn btn-primary">Modify</button>
+                </a>
+                <a th:href="@{/board/list(page=${pageRequestDTO.page},type=${pageRequestDTO.type},keyword=${pageRequestDTO.keyword})}">
+                    <button type="button" class="btn btn-info">Go to List</button>
+                </a>
+
+                <div class="modal" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">알림 메시지</h5>
+        
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="replyText" placeholder="댓글 입력">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="replier" placeholder="작성자">
+                                <input type="hidden" name="rno">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger replyRemove">삭제</button>
+                            <button type="button" class="btn btn-warning replyModify">수정</button>
+                            <button type="button" class="btn btn-primary replySave">저장</button>
+                            <button type="button" class="btn btn-outline-secondary replyClose" data-dismiss="modal">닫기</button>
+                        </div>
+                    </div>
+                </div>
+             </div>
+
+
+                <div>
+                    <div class="mt-4">
+                        <h5><span class="badge badge-info addReply">Add Reply</span></h5>
+                        <h5><b><span class="badge badge-secondary replyCount">Reply Count-[[${dto.replyCount}]]</span></b></h5>
+                    </div>
+                    <div class="list-group replyList">
+
+                    </div>
+                </div>
+
+
+                <script th:src="@{/js/board/read.js}"></script>
+                <script th:inline="javascript">
+
+                    var bno =[[${dto.bno}]];
+
+                    var modal =$('.modal');
+                </script>
+
+
+            </th:block>
+</th:block>
+</html>
