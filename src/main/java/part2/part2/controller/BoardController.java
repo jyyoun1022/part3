@@ -49,6 +49,7 @@ public class BoardController {
 
         model.addAttribute("dto",boardDTO);
     }
+
     @PostMapping("/modify")
     public String modify(Model model,@ModelAttribute("pageRequestDTO")PageRequestDTO pageRequestDTO,
                          @ModelAttribute("boardDTO")BoardDTO boardDTO,
@@ -56,13 +57,14 @@ public class BoardController {
 
         boardService.modify(boardDTO);
 
-        redirectAttributes.addFlashAttribute("page",pageRequestDTO.getPage());
-        redirectAttributes.addFlashAttribute("type",pageRequestDTO.getType());
-        redirectAttributes.addFlashAttribute("keyword",pageRequestDTO.getKeyword());
+        redirectAttributes.addAttribute("page",pageRequestDTO.getPage());
+        redirectAttributes.addAttribute("type",pageRequestDTO.getType());
+        redirectAttributes.addAttribute("keyword",pageRequestDTO.getKeyword());
 
-        redirectAttributes.addFlashAttribute("bno",boardDTO.getBno());
+        redirectAttributes.addAttribute("bno",boardDTO.getBno());
 
         return "redirect:/board/read";
+
     }
 
     @PostMapping("/remove")
@@ -74,3 +76,5 @@ public class BoardController {
         return "redirect:/board/list";
     }
 }
+
+

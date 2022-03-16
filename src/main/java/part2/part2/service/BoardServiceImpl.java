@@ -57,7 +57,8 @@ public class BoardServiceImpl implements BoardService{
         Object result = repository.getBoardByBno(bno);
         Object[] arr = (Object[]) result;
 
-        return entityToDto((Board) arr[0],(Member) arr[1],(Long) arr[2]);
+        return entityToDto((Board)arr[0], (Member)arr[1], (Long)arr[2]);
+
     }
 
     @Transactional
@@ -79,6 +80,7 @@ public class BoardServiceImpl implements BoardService{
             board.changeContent(boardDTO.getContent());
 
             repository.save(board);
+
         }
     }
 }

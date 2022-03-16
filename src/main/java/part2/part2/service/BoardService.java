@@ -33,17 +33,17 @@ public interface BoardService {
     }
     default BoardDTO entityToDto(Board board,Member member,Long replyCount){
 
-        BoardDTO boardDTO = BoardDTO.builder()
+        BoardDTO dto = BoardDTO.builder()
                 .bno(board.getBno())
                 .title(board.getTitle())
                 .content(board.getContent())
                 .writerEmail(member.getEmail())
                 .writerName(member.getName())
+                .replyCount(replyCount.intValue())
                 .regDate(board.getRegDate())
                 .modDate(board.getModDate())
-                .replyCount(replyCount.intValue())
                 .build();
 
-        return boardDTO;
+        return dto;
     }
 }
